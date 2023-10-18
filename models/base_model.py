@@ -7,16 +7,18 @@ import models
 import uuid
 from datetime import datetime
 
-class BaseModel():
+
+class BaseModel:
     """Defines all class attributes"""
 
     def __init__(self, *args, **kwargs):
         """Initializes all instance attributes"""
 
         if len(kwargs) != 0:
+            Time = "%Y-%m-%dT%H:%M:%S.%f"
             self.__dict__ = kwargs
-            self.created_at = datetime.strptime(self.created_at, "%Y-%m-%dT%H:%M:%S.%f")
-            self.updated_at = datetime.strptime(self.updated_at, "%Y-%m-%dT%H:%M:%S.%f")
+            self.created_at = datetime.strptime(self.created_at, Time)
+            self.updated_at = datetime.strptime(self.updated_at, Time)
 
         else:
             self.id = str(uuid.uuid4())

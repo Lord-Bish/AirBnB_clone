@@ -11,41 +11,41 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
-class FileStorage():
+
+class FileStorage:
     """serializes/deserializes json files"""
 
-   __file_path = "my_file.json"
-   __objects = {}
+    __file_path = "my_file.json"
+    __objects = {}
 
-   def all(self):
-       """returns object dictionary"""
-       
-       return self.__objects
+    def all(self):
+        """returns object dictionary"""
 
-   def new(self, obj):
-       """sets in object the obj with class name.id"""
+        return self.__objects
 
-       self.__objects["{}.{}".format(obj.__class__.__name__, obj.id)]
+    def new(self, obj):
+        """sets in object the obj with class name.id"""
 
-   def save(self):
-       """serializes objects to json file 'my_file'"""
+        self.__objects["{}.{}".format(obj.__class__.__name__, obj.id)]
 
-      new_dict = {}
+    def save(self):
+        """serializes objects to json file 'my_file'"""
+        new_dict = {}
 
-      with open(self.__file_path, mode="w+", encoding="utf-8") as f:
-          for k, v in self.__objects.items():
-              new_dict[k] = v.to_dict()
-          json.dump(new_dict, f)
+        with open(self.__file_path, mode="w+", encoding="utf-8") as f:
+            for k, v in self.__objects.items():
+                new_dict[k] = v.to_dict()
+                json.dump(new_dict, f)
 
-   def reload(self):
-       """converts json file to objects"""
+    def reload(self):
+        """converts json file to objects"""
 
-       try:
-           with open(self.__file_path, mode="r", encoding="utf-8") as f:
-               new_object = json.load(f)
-               for k, v in new_object.items():
-                   reloaded_obj = eval("{}(**v)".format(v["__class__"]))
-                   self.__objects = reloaded_obj
+        try:
+            with open(self.__file_path, mode="r", encoding="utf-8") as f:
+                new_object = json.load(f)
+                for k, v in new_object.items():
+                    reloaded_obj = eval("{}(**v)".format(v["__class__"]))
+                    self.__objects = reloaded_obj
 
-       except IOError:
-           pass
+        except IOError:
+            pass

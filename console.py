@@ -14,12 +14,12 @@ from models.city import City
 from models.amenity import Amenity
 from models.review import Review
 
+
 class HBNBCommand(cmd.Cmd):
     """command interpreter"""
 
     prompt = "(hbnb) "
-    myclasses = ["BaseModel", "User", "Place", "State", "Amenity", "Review", "City"]
-
+    kls = ["BaseModel", "User", "Place", "State", "Amenity", "Review", "City"]
 
     def help_quit(self):
         """help quit"""
@@ -35,11 +35,9 @@ class HBNBCommand(cmd.Cmd):
         """Shows docummented commands and their usage"""
 
         print("EOF command to quit the program\n")
-        
 
     def EOF(self, line):
         """exits the enterpreter when hits cntr D"""
-
         return True
 
     def emptyline(self):
@@ -52,8 +50,8 @@ class HBNBCommand(cmd.Cmd):
 
         if len(classname) == 0:
             print("** class name missing **")
-        
-        elif classname not in self.myclasses:
+
+        elif classname not in self.kls:
             print("** class doesn\'t exist **")
             return False
 
@@ -70,7 +68,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return False
 
-        elif args[0] not in self.myclasses:
+        elif args[0] not in self.kls:
             print("** class doesn't exist **")
             return False
 
@@ -97,10 +95,12 @@ class HBNBCommand(cmd.Cmd):
     def help_destroy(self):
         """help destroy"""
 
-        print("destroy command destroys class instances based on class name and id\n")
+        print("destroy command destroys class instances\n based on class name and id\n")
 
     def do_destroy(self, line):
-        """Destroys instances based on class name and id"""
+        """
+        Destroys instances based on class name and id
+        """
 
         args = line.split()
 
@@ -108,7 +108,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return False
 
-        elif args[0] not in self.myclasses:
+        elif args[0] not in self.kls:
             print("** class doesn\'t exist **")
             return False
 
@@ -127,8 +127,8 @@ class HBNBCommand(cmd.Cmd):
 
     def help_all(self):
         """help all"""
-        
-        print("all command prints all string representation of all instances wether based on class name or not\n")
+
+        print("all command prints all string representation of all instances\n wether based on class name or not\n")
 
     def do_all(self, line):
         """
@@ -143,7 +143,7 @@ class HBNBCommand(cmd.Cmd):
                 str_arg = str(all_objs[i])
                 print(str_arg)
 
-        elif line not in self.myclasses:
+        elif line not in self.kls:
             print("** class doesn\'t exist **")
             return False
 
@@ -153,7 +153,6 @@ class HBNBCommand(cmd.Cmd):
                     str_arg = str(all_objs[i])
                     print(str_arg)
         return False
-
 
     def help_update(self):
         """help update"""
@@ -209,7 +208,7 @@ class HBNBCommand(cmd.Cmd):
             try:
                 setattr(clschange, attributename, float(updatevalue))
                 storage.save()
-            except:
+            except TypeError:
                 setattr(clschange, attributename, str(updatevalue))
                 storage.save()
 
