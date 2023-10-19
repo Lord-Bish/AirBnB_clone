@@ -29,7 +29,7 @@ class BaseModel:
     def __str__(self):
         """prints string representaion of objects"""
 
-        return (f"{self.__class__.__name__} {self.id} {self.__dict__}8")
+        return (f"{self.__class__.__name__} {self.id} {self.__dict__}")
 
     def save(self):
         """updates updated_at with current datetime"""
