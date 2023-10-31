@@ -30,8 +30,7 @@ class TestHBNBCommandPep8(unittest.TestCase):
         file1 = 'console.py'
         file2 = 'tests/test_console.py'
         result = style.check_files([file1, file2])
-        self.assertEqual(result.total_errors, 0,
-                         "Found code style errors (and warning).")
+        self.assertEqual(result.total_errors, 0, "Found code style errors (and warning).")
 
 
 class TestHBNBCommand(unittest.TestCase):
